@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test</title>
+	<link rel="stylesheet" type="text/css" 
+	href="bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/aa.css">
+    <link rel="stylesheet" href="css/header-footer.css">
+
+	<style type="text/css">
+		#anh-nen {
+            background-image: url('background.jpg'); 
+            height: 200px; 
+            background-repeat: no-repeat; 
+            background-size: cover;
+        }
+	</style>
+</head>
+<body>
+
+	<!-- head-->
+	<div class="container" >
+
+		<div class="row" style="margin: 10px 0px">
+			<div class="col-3" style="padding-left: 0px;">
+				<img src="logo-left.png">
+			</div>
+			<div class="col-5" style="margin-top: 5px; padding-left: 0px;">
+				<img style="float: left; margin-right: 5px" src="logo_right.png">
+				<span style="font-size: 17px;">BỘ Y TẾ </span> <br>
+				<span style="font-size: 27px;">CỤC QUẢN LÝ DƯỢC </span>
+			</div>
+		</div>
+    </div>
+		
+    <div class="container-fluid" style="background-color: #0f2f4f;">
+        <div class="container">
+            <div class="row" style=" color: hsla(0,0%,100%,.5);  padding-top: 5px; padding-bottom: 5px;margin-left: -3px;" >
+
+                <div class="col-6">
+                    <div class="row justify-content-start">
+                        <ul class="nav">
+                          <li class="nav-item">
+                            <i class="fa fa-home"></i>
+                            <a class="nav-link" href="home.html">TRANG CHỦ</a>
+                          </li>
+                          <li class="nav-item">
+                            <i class="fas fa-capsules"></i>
+                            <a class="nav-link" href="#">THUỐC</a>
+                          </li>
+                          <li class="nav-item">
+                            <i class="fa fa-briefcase-medical"></i>
+                            <a class="nav-link" href="#">CƠ SỞ KINH DOANH</a>
+                          </li>
+                          
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="row justify-content-end">
+                        <span id="info-admin"></span>
+                        <ul class="nav">
+                          <li class="nav-item">
+                            <a class="nav-link" href="login.html">ĐĂNG NHẬP</a>
+                          </li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+	<div id="anh-nen">
+	       	<img src="">
+    </div>
+
+	<!-- body-->
+	<div class="bg-head"> 	
+	<div class="text-center" style="background-color: #0f2f4f  height: 25px">
+		<p class="text-center"> DANH MỤC THUỐC</p>
+	</div>
+	</div>
+	<div class="tab">
+		<table class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th style="width: 10%">Số đăng kí</th>
+					
+					<th style="width: 10%">Tên thuốc</th>
+					<th>Hoạt chất</th>
+					<th style="width: 20%">Công ty sản xuất</th>
+					<th style="width: 10%">Nước sản xuất</th>
+					<th style="width: 7%">
+					 <a href="info-thuoc.html" class="btn btn-primary" id="xem1">Xem</a>
+                  </div>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+						
+					<th>1</th>
+					<th>2</th>
+					<th>3</th>
+					<th>1</th>
+					<th>2</th>
+					<th>
+					 <a href="info-thuoc.html" class="btn btn-primary" id="xem1">Xem</a>
+					</th>
+				</tr>
+				<tr>
+						
+					<th>1</th>
+					<th>2</th>
+					<th>3</th>
+					<th>1</th>
+					<th>2</th>
+					<th>3</th>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div style="display: flex; justify-content: center;">
+		<ul class="pagination">
+		    <li class="page-item"><a class="page-link" href="#"><<</a></li>
+		    <li class="page-item"><a class="page-link" href="#">1</a></li>
+		    <li class="page-item"><a class="page-link" href="#">2</a></li>
+		    <li class="page-item"><a class="page-link" href="#">3</a></li>
+		    <li class="page-item"><a class="page-link" href="#">4</a></li>
+		    <li class="page-item"><a class="page-link" href="#">5</a></li>
+		    <li class="page-item"><a class="page-link" href="#">>></a></li>
+		</ul>
+	</div>
+	
+	<!-- footer -->
+    <div class="container-fluid footer" style="background-color: #17a2b8; height: 100px; text-align: center;">
+        <div>Ngân hàng dữ liệu ngành dược</div>
+        <div><b>Bản quyền: </b> Cục Quản lý Dược - Bộ Y tế</div>
+    </div>
+
+
+	<script type="text/javascript">
+		 $(".tab .table a").click(function(event) {
+            /* Act on the event */
+            var s = $(this).parent().children('.xem1').text();
+            alert(s);
+            $(this).attr('href', 'info-thuoc.html?thuoc=tuấn' );
+        });
+	</script>	
+
+</body>
+</html>
