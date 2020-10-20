@@ -43,23 +43,31 @@
         .entity:focus {
             background-color: #3A6FCF
             box-shadow: 1px 1px #007bff;
+            background: #0f2f4f linear-gradient(180deg,#334e69,#0f2f4f) repeat-x;
+        }
+
+        .entity:hover {
+            background-color: #007bff;
+            box-shadow: 1px 1px #0f2f4f;
+            background: #0f2f4f linear-gradient(180deg,#334e69,#0f2f4f) repeat-x;
+            color: white !important;
         }
 
         .entityfocus {
             background-color: #007bff;
-            box-shadow: 1px 1px #007bff;
+            box-shadow: 1px 1px #0f2f4f;
+            background: #0f2f4f linear-gradient(180deg,#334e69,#0f2f4f) repeat-x;
+            color: white !important;
         }
 
         .card {
             cursor: pointer;
         }
 
-
         #x {
             position: absolute; 
             left: 470px; 
             z-index: 5; 
-
             top: 15px; 
             visibility: hidden;
         }
@@ -95,11 +103,11 @@
                           </li>
                           <li class="nav-item">
                             <i class="fas fa-capsules"></i>
-                            <a class="nav-link" href="#">THUỐC</a>
+                            <a class="nav-link" href="thuoc.html">THUỐC</a>
                           </li>
                           <li class="nav-item">
                             <i class="fa fa-briefcase-medical"></i>
-                            <a class="nav-link" href="#">CƠ SỞ KINH DOANH</a>
+                            <a class="nav-link" href="cskd.html">CƠ SỞ KINH DOANH</a>
                           </li>
                           
                         </ul>
@@ -165,23 +173,7 @@
 
     <div class="container drug mt-3 mb-3">
         <div class="row">
-            <div class="col-sm-3">
-                <div class="card">
-                  <img class="card-img-top" src="https://via.placeholder.com/400x400.png?text=ảnh%20thuốc" alt="Card image cap">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                  </div>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="card">
-                  <img class="card-img-top" src="https://via.placeholder.com/400x400.png?text=400x400" alt="Card image cap">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                  </div>
-                </div>
-            </div>
-
+           
         </div>
     </div>
 
@@ -194,7 +186,7 @@
 
     <div class="container company mt-3 mb-3">
         <div class="row">
-            <div class="col-sm-3">
+            <!-- <div class="col-sm-3">
                 <div class="card">
                   <img class="card-img-top" src="logo_right.png" alt="Card image cap">
                   <div class="card-body">
@@ -209,7 +201,7 @@
                     <h5 class="card-title">Card title</h5>
                   </div>
                 </div>
-            </div>
+            </div> -->
 
         </div>
 
@@ -224,6 +216,36 @@
 	
 
     <script>
+
+        $(document).ready(function() {
+            $.ajax({
+                url : 'module/function/home.php',
+                type : 'post',
+                dataType : 'json',
+                success : function (result){
+                    var html = '';
+
+                    // Vì kết quả trả về dạng JSON nên ta lặp để lấy kết quả
+                    $.each(result, function (key, item){
+                        html += '<div class="col-sm-3">';
+                        html += '<div class="card">';
+                        html += '<img class="card-img-top" src="https://via.placeholder.com/400x400.png?text=400x400" alt="Card image cap">'
+                        html += '<div class="card-body">';
+                        html += '<h5 class="card-title">'+item.ten_thuoc+'</h5>'
+                        html += '</div></div></div>';
+                    });
+                      
+                    // Gán nội dung html vào thẻ content
+                    $('.drug .row').html(html);
+                    
+                },
+                error : function (result) {
+                    alert("lỗi");
+                }
+
+            });
+        });
+
         // xử lý thanh tìm kiếm
         $("#thanhtimkiem").keypress(function(event) {
             /* Act on the event */
@@ -263,10 +285,10 @@
             alert($('.entityfocus').val());
         });
 
-        // xử lý click vào card
-        $('.card').click(function(event) {
-            /* Act on the event */
-            location.assign("info-thuoc.html");
+        // xử lý click vào 1 thuốc nào đó
+        $("body").on("click", ".drug .row .card", function(){
+            var thuoc = $(this).find('.card-title').text();
+            location.assign("info-thuoc.html?thuoc=" + thuoc);
         });
 
         // xử lý click vào search

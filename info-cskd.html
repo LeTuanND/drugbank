@@ -24,7 +24,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <!-- Thu vien wow js -->
     <script src="js/wow.min.js"></script>
-    <title>Fantastic 3 Cineplex</title>
+    <title>Thông tin cơ sở kinh doanh</title>
     <style type="text/css">
         .tieude {
             background-color: #0f2f4f; 
@@ -46,6 +46,11 @@
         .col-sm-8 {
             text-align: right !important;
         }
+
+        .same-cty .row .col-sm-4 {
+            margin-bottom: 20px
+        }
+
 
     </style>
         
@@ -79,11 +84,11 @@
                           </li>
                           <li class="nav-item">
                             <i class="fas fa-capsules"></i>
-                            <a class="nav-link" href="#">THUỐC</a>
+                            <a class="nav-link" href="thuoc.html">THUỐC</a>
                           </li>
                           <li class="nav-item">
                             <i class="fa fa-briefcase-medical"></i>
-                            <a class="nav-link" href="#">CƠ SỞ KINH DOANH</a>
+                            <a class="nav-link" href="cskd.html">CƠ SỞ KINH DOANH</a>
                           </li>
                           
                         </ul>
@@ -107,7 +112,7 @@
 
 
     <!-- content -->
-    <div class="container-fluid text-white tieude" style="background-color: #20c997;">
+    <div class="container-fluid text-white tieude tencty" style="background-color: #20c997;">
             Công ty Cổ phần Xuất nhập khẩu Y tế Thành phố Hồ Chí Minh
     </div>
 
@@ -116,7 +121,7 @@
             <div class="col-sm-4">
                 Tên Công ty
             </div>
-            <div class="col-sm-8" style="text-align: right !important;">
+            <div class="col-sm-8" id="ten-cty">
                 Công ty Cổ phần Xuất nhập khẩu Y tế Thành phố Hồ Chí Minh
             </div>
         </div>
@@ -124,7 +129,7 @@
             <div class="col-sm-4">
                 Địa chỉ trụ sở chính
             </div>
-            <div class="col-sm-8" style="text-align: right !important;">
+            <div class="col-sm-8" id="tru-so">
                 181 Nguyễn Đình Chiểu, Phường 6, Quận 3, TP. Hồ Chí Minh
             </div>
         </div>
@@ -132,7 +137,7 @@
             <div class="col-sm-4">
                 Địa điểm kinh doanh
             </div>
-            <div class="col-sm-8">
+            <div class="col-sm-8" id="dia-chi-kd">
                 24 Đường 17, Phường Hiệp Bình Phước, Quận Thủ Đức, TP. Hồ Chí Minh
             </div>
         </div>
@@ -140,7 +145,7 @@
             <div class="col-sm-4">
                 Điện thoại/Fax
             </div>
-            <div class="col-sm-8">
+            <div class="col-sm-8" id="sdt">
                 0945812584
             </div>
         </div>
@@ -148,7 +153,7 @@
             <div class="col-sm-4">
                 Loại hình kinh doanh
             </div>
-            <div class="col-sm-8">
+            <div class="col-sm-8" id="loai-hinh-kd">
                 bán lẻ
             </div>
         </div>
@@ -161,7 +166,7 @@
             Thuốc do công ty sản xuất
     </div>
 
-    <div class="container" style="margin-top: 10px; margin-bottom: 10px;">
+    <div class="container same-cty" style="margin-top: 10px; margin-bottom: 10px;">
         <div class="row">
             <div class="col-sm-4">
                 <div class="card">
@@ -172,7 +177,7 @@
                     <p class="card-text">Viên nén</p>
                     <p class="card-text">Công ty Cổ phần Dược - Trang thiết bị Y tế Bình Định (Bidiphar) - Việt Nam</p>
                     <p class="card-text">Giá bán buôn kê khai: ₫15,000/Viên</p>
-                    <a href="info-thuoc.html" class="btn btn-primary">Chi tiết</a>
+                    <a style="position: absolute; left: 10px; bottom: 10px" href="info-thuoc.html" class="btn btn-primary">Chi tiết</a>
                   </div>
                 </div>
             </div>
@@ -190,12 +195,87 @@
 
 
     <script type="text/javascript">
-        $(".card .card-body a").click(function(event) {
-            /* Act on the event */
-             s = $(this).parent().children('.card-title').text();
+        
 
-            $(this).attr('href', 'info-thuoc.html?thuoc=tuấn' );
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+         
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+            
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+        };
+        var cskdTK = getUrlParameter('cskd');
+
+        //hiển thị thông tin công ty đó
+        $(document).ready(function() {
+            $(".tencty").text(cskdTK);
+            $.ajax({
+                url : 'module/function/info-cskd.php',
+                type : 'post',
+                dataType : 'json',
+                data : {
+                    cskd : cskdTK
+                },
+                success : function (result)
+                {
+                    $("#ten-cty").text(result["ten_cty"]);
+                    $("#tru-so").text(result["dia_chi_tru_so"]);
+                    $("#loai-hinh-kd").text(result["loai_hinh_kd"]);
+                    $("#sdt").text(result["sdt"]);
+                },
+                error : function (result) {
+                    alert("lỗi");
+                }
+            });
+
+            //hiển thị các thuốc do công ty đó sản xuất
+            $.ajax({
+                url : 'module/function/thuoc-info-cskd.php',
+                type : 'post',
+                dataType : 'json',
+                data : {
+                    cskd : cskdTK
+                },
+                success : function (result)
+                {
+                    var html = '';
+
+                    // Vì kết quả trả về dạng JSON nên ta lặp để lấy kết quả
+                    $.each(result, function (key, item){
+
+                        html += '<div class="col-sm-4">';
+                        html += '<div class="card" style="height: 320px">';
+                        html += '<div class="card-body">';
+                        html += '<h5 class="card-title">'+item.ten_thuoc+'</h5>';
+                        html += '<p class="card-text">'+item.so_dang_ki+'</p>';
+                        html += '<p class="card-text">'+item.hoat_chat+'</p>';
+                        html += '<p class="card-text">Giá bán buôn kê khai: '+item.gia_thanh+'</p>';
+                        html += '<a style="position: absolute; left: 10px; bottom: 10px" href="info-thuoc.html" class="btn btn-primary">Chi tiết</a>'
+                        html += '</div></div></div>';
+                    });
+                      
+                    // Gán nội dung html vào thẻ content
+                    $('.same-cty .row').html(html);
+                },
+                error : function (result) {
+                    alert("lỗi");
+                }
+            });
         });
+
+        // xử lý click vào 1 thuốc nào đó
+        $("body").on("click", ".same-cty .row .col-sm-4 .card a", function(){
+            var thuoc = $(this).parent().find('.card-title').text();
+            $(this).attr('href', 'info-thuoc.html?thuoc=' + thuoc );
+        });
+
     </script>
 
 </body>

@@ -45,7 +45,7 @@
             background-color: #0f2f4f; 
             height: 55px; 
             text-align: center; 
-            padding-top: 10px; 
+            padding-top: 13px; 
             font-size: 20px; 
             font-family: Arial, Helvetica, sans-serif;
         }
@@ -87,11 +87,11 @@
                           </li>
                           <li class="nav-item">
                             <i class="fas fa-capsules"></i>
-                            <a class="nav-link" href="#">THUỐC</a>
+                            <a class="nav-link" href="thuoc.html">THUỐC</a>
                           </li>
                           <li class="nav-item">
                             <i class="fa fa-briefcase-medical"></i>
-                            <a class="nav-link" href="#">CƠ SỞ KINH DOANH</a>
+                            <a class="nav-link" href="cskd.html">CƠ SỞ KINH DOANH</a>
                           </li>
                           
                         </ul>
@@ -115,7 +115,7 @@
 
 
     <!-- content -->
-    <div class="container-fluid text-white tieude" style="background-color: #20c997;">
+    <div class="container-fluid text-white tieude tenthuoc" style="background-color: #20c997;">
             Zinnat tablets 500mg
     </div>
 
@@ -324,12 +324,34 @@
                 }
             }
         };
-        var page123 = getUrlParameter('thuoc');
+        var thuocTK = getUrlParameter('thuoc');
+
 
         $(document).ready(function() {
-            alert(page123);
+            $(".tenthuoc").text(thuocTK);
+            $.ajax({
+                url : 'module/function/info-thuoc.php',
+                type : 'post',
+                dataType : 'json',
+                data : {
+                    thuoc : thuocTK
+                },
+                success : function (result)
+                {
+                    $("#ten-thuoc").text(result["ten_thuoc"]);
+                    $("#so-dang-ki").text(result["so_dang_ki"]);
+                    $("#hoat-chat").text(result["hoat_chat"]);
+                    $("dong-goi").text(result["quy_cach_dong_goi"]);
+                    $("#hsd").text(result["han_su_dung"]);
+                    $("#cty-sx").text(result["ten_cong_ty"]);
+                    $("#gia").text(result["gia_thanh"]);
+                },
+                error : function (result) {
+                    alert("lỗi");
+                }
+            });
         });
-        
+    
     </script>
 
 </body>

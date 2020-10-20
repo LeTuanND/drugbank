@@ -1,13 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>test</title>
-	<link rel="stylesheet" type="text/css" 
-	href="bootstrap/css/bootstrap.css">
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv='cache-control' content='no-cache'> 
+    <meta http-equiv='expires' content='0'> 
+    <meta http-equiv='pragma' content='no-cache'> 
+    
+    <!-- header vs footer css-->
+    <link rel="stylesheet" href="css/header-footer.css">
 
-	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="stylesheet" type="text/css" href="css/aa.css">
+    <!-- Bootstrap 4 CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Thu vien animate -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <!-- Khai bao fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    
+    <link href='https://fonts.googleapis.com/css2?family=Chewy&family=Fira+Sans+Extra+Condensed&family=Asap+Condensed&family=Roboto+Condensed&family=Bungee+Inline&family=VT323&family=Fira+Sans+Extra+Condensed&family=IBM+Plex+Sans&family=Fira+Sans+Extra+Condensed&family=Bangers&family=Bungee+Inline&family=Asap&family=Pangolin&family=Francois+One&family=Cabin&family=Special+Elite&display=swap' rel="stylesheet">
+    <!-- Thu vien jquery -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap 4 js -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!-- Thu vien wow js -->
+    <script src="js/wow.min.js"></script>
+    <title>Cơ sở kinh doanh</title>
+	<link rel="stylesheet" type="text/css" href="css/thuoc-cskd.css">
 	<style type="text/css">
 		#anh-nen {
             background-image: url('background.jpg'); 
@@ -15,6 +33,7 @@
             background-repeat: no-repeat; 
             background-size: cover;
         }
+        
 	</style>
 </head>
 <body>
@@ -47,11 +66,11 @@
                           </li>
                           <li class="nav-item">
                             <i class="fas fa-capsules"></i>
-                            <a class="nav-link" href="#">THUỐC</a>
+                            <a class="nav-link" href="thuoc.html">THUỐC</a>
                           </li>
                           <li class="nav-item">
                             <i class="fa fa-briefcase-medical"></i>
-                            <a class="nav-link" href="#">CƠ SỞ KINH DOANH</a>
+                            <a class="nav-link" href="cskd.html">CƠ SỞ KINH DOANH</a>
                           </li>
                           
                         </ul>
@@ -79,7 +98,7 @@
 
 	<div class="bg-head"> 	
 	<div class="text-center" style="background-color: #0f2f4f  height: 25px">
-		<p class="text-center"> DANH MỤC THUỐC</p>
+		<p class="text-center"> DANH MỤC CƠ SỞ KINH DOANH</p>
 	</div>
 	</div>
 	<div class="tab">
@@ -94,57 +113,13 @@
 					<th style="width: 25%">Tên công ty</th>
 					<th style="width: 25%">Loại hình kinh doanh</th>
 					<th style="width: 39%">Trụ sở chính</th>	
-					<th style="width: 10%">
+					<th style="width: 5%">
 						<!--<button type="button" class="btn btn-primary">Reset</button>-->
 					</th>
 				</tr>
 			</thead>
 			
-			<tbody>
-				<!--<tr>
-						
-					<th>
-						<input class="inbox" placeholder="" type="text" name="tencongty" id="myInput" onkeyup="myFunction()">
-					</th>
-					<th>
-						<input class="inbox" type="text" name="loaihinhkinhdoanh" id="loaihinhkinhdoanh">
-					</th>
-					<th>
-						<input class="inbox" type="text" name="trusochinh" id="trusochinh">
-					</th>
-					<th>
-						<button type="button" class="btn btn-primary">Tìm</button>
-						<button type="button" class="btn btn-primary">Reset</button>
-					</th>
-				</tr>-->
-				<tr>
-						
-					<td>abcss</td>
-					<td>aaskđfkdlfld</td>
-					<td>aaaaaaaaaaaaaaaaaa</td>
-					<td>
-						<button style="text-align: center;" type="button" class="btn btn-primary">Xem</button>
-					</th>
-				</tr>
-				<tr>
-						
-					<td>avcss</td>
-					<td>caskđfkdlfld</td>
-					<td>aaaaaaaaaaaaaaaaaa</td>
-					<td>
-						<button style="text-align: center;" type="button" class="btn btn-primary">Xem</button>
-					</th>
-				</tr>
-				<tr>
-						
-					<td>cbcss</td>
-					<td>zaskđfkdlfld</td>
-					<td>aaaaaaaaaaaaaaaaaa</td>
-					<td>
-						<button style="text-align: center;" type="button" class="btn btn-primary">Xem</button>
-					</th>
-					
-				</tr>
+			<tbody id="body">
 			</tbody>
 		</table>
 	</div>
@@ -167,18 +142,59 @@
         <div><b>Bản quyền: </b> Cục Quản lý Dược - Bộ Y tế</div>
     </div>
 
-	<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/script.js"></script>
+	
 	<script type="text/javascript">
-				$("button").click(function(event) {
-			/* Act on the event */
-			var tukhoa = $(this).parent().children('input').val();
-			
+		$(document).ready(function() {
+		  	$('#myInput').on('keyup', function(event) {
+			   	event.preventDefault();
+			    /* Act on the event */
+			    var tukhoa = $(this).val().toLowerCase();
+			    $('#myTable tr').filter(function() {
+			      $(this).toggle($(this).text().toLowerCase().indexOf(tukhoa)>-1);
+			    });
+
+		  	});
 		});
-				$('#myTable tr').filter(function() {
-      $(this).toLowerCase().filter(tukhoa);
-    });
+
+		//hiển thị danh sách cơ sở kinh doanh
+		$(document).ready(function() {
+			$.ajax({
+                url : 'module/function/cskd.php',
+                type : 'post',
+                dataType : 'json',
+                success : function (result){
+                    var html = '';
+
+                    // Vì kết quả trả về dạng JSON nên ta lặp để lấy kết quả
+                    $.each(result, function (key, item){
+                        html += '<tr>';
+                        html += '<td class="cty">' + item.ten_cong_ty + "</td>";
+                        html += '<td>' + item.loai_hinh_kinh_doanh + "</td>";
+                        html += '<td>' + item.tru_so + "</td>";
+                        html += '<td><button style="text-align: center;" class="btn btn-primary">Xem</button></td></tr>'
+                    });
+                      
+                    // Gán nội dung html vào thẻ content
+                    $('#body').html(html);
+                    
+                },
+                error : function (result) {
+                    alert("lỗi");
+                }
+
+            });
+		});
+
+		//xử lý sự kiện click button xem
+		$("body").on("click", "#body tr td button", function(){
+            var cskd = $(this).parent().parent().children('.cty').text();
+            location.assign("info-cskd.html?cskd=" + cskd);
+        });
+
+
+
+
+	    
 	</script>
 </script>
 </body>
