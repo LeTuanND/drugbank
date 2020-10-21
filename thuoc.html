@@ -107,44 +107,36 @@
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<th style="width: 7%">Số đăng kí</th>
+					<th style="width: 8%">Số đăng kí</th>
 					
 					<th style="width: 13%">Tên thuốc</th>
 					<th>Hoạt chất</th>
-					<th style="width: 20%">Công ty sản xuất</th>
-					<th style="width: 10%">Nước sản xuất</th>
+					<th style="width: 30%">Công ty sản xuất</th>
 					<th style="width: 5%">
 					 <a href="info-thuoc.html" class="btn btn-primary" id="xem1">Xem</a>
                   </div>
 					</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="bodythuoc">
 				<tr>
-					<th>1</th>
-					<th>2</th>
-					<th>3</th>
-					<th>1</th>
-					<th>2</th>
-					<th>
-					 <a href="info-thuoc.html" class="btn btn-primary" id="xem1">Xem</a>
+					
+					<t>
+					 <a href="info-thuoc.html" class="btn btn-primary" id="xem">Xem</a>
 					</th>
 				</tr>
 
 			</tbody>
 		</table>
 	</div>
-	<div style="display: flex; justify-content: center;">
-		<ul class="pagination">
-		    <li class="page-item"><a class="page-link" href="#"><<</a></li>
-		    <li class="page-item"><a class="page-link" href="#">1</a></li>
-		    <li class="page-item"><a class="page-link" href="#">2</a></li>
-		    <li class="page-item"><a class="page-link" href="#">3</a></li>
-		    <li class="page-item"><a class="page-link" href="#">4</a></li>
-		    <li class="page-item"><a class="page-link" href="#">5</a></li>
-		    <li class="page-item"><a class="page-link" href="#">>></a></li>
-		</ul>
-	</div>
+
+	<!-- phân trang -->
+	<ul class="pagination justify-content-center">
+        <li class="page-item pre "><a class="page-link" href="#">Trước</a></li>
+        <li class="page-item active"><a class="page-link" href="#">2</a></li>
+        <li class="page-item next"><a class="page-link" href="#">Sau</a></li>
+    </ul>
+	
 	
 	<!-- footer -->
     <div class="container-fluid footer" style="background-color: #17a2b8; height: 100px; text-align: center;">
@@ -155,15 +147,105 @@
 
 	<script type="text/javascript">
 
-		
-        
-        // });
+        //lấy giá trị page
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+         
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+            
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+        };
+        var pagePT = getUrlParameter('page');
 
-		 $(".tab .table a").click(function(event) {
-            /* Act on the event */
-            var s = $(this).parent().children('.xem1').text();
-            alert(s);
-            $(this).attr('href', 'info-thuoc.html?thuoc=tuấn' );
+
+		$(document).ready(function() {
+
+            //lấy danh sách các thuốc
+			$.ajax({
+                url : 'module/function/thuoc.php',
+                type : 'post',
+                dataType : 'json',
+                success : function (result){
+                    var html = '';
+
+                    // Vì kết quả trả về dạng JSON nên ta lặp để lấy kết quả
+                    $.each(result, function (key, item){
+                        html += '<tr>';
+                        html += '<td>' + item.so_dki + "</td>";
+                        html += '<td id = "thuoc">' + item.ten_thuoc + "</td>";
+                        html += '<td>' + item.hoat_chat + "</td>";
+                        html += '<td>' + item.cty + "</td>";
+                        html += '<td><button style="text-align: center;" class="btn btn-primary">Xem</button></td></tr>'
+                    });
+                      
+                    // Gán nội dung html vào thẻ content
+                    $('#bodythuoc').html(html);
+                    
+                },
+                error : function (result) {
+                    alert("lỗi");
+                }
+            });
+
+            //phân trang
+
+            //xét giá trị
+            if ($('.pagination .active').text() == "1") {
+                $('.pagination .pre').addClass('disabled');
+            };
+
+            var pre = Number($('.pagination .active').text()) - 1;
+            $('.pagination .pre a').attr('href', '?page=' + pre.toString());
+
+            var next = Number($('.pagination .active').text()) + 1; 
+            $('.pagination .next a').attr('href', '?page=' + next.toString());
+		});
+
+
+		//xử lý sự kiện click button xem
+		$("body").on("click", "#bodythuoc tr td button", function(){
+            var thuoc = $(this).parent().parent().children('#thuoc').text();
+            location.assign("info-thuoc.html?thuoc=" + thuoc);
+        });
+
+
+
+        //lấy giá trị page
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+         
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+            
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+        };
+        var pagePT = getUrlParameter('page');
+
+		
+		//phân trang
+		$(document).ready(function() {
+            if ($('.pagination .active').text() == "1") {
+                $('.pagination .pre').addClass('disabled');
+            };
+
+            var pre = Number($('.pagination .active').text()) - 1;
+            $('.pagination .pre a').attr('href', '?page=' + pre.toString());
+
+            var next = Number($('.pagination .active').text()) + 1; 
+            $('.pagination .next a').attr('href', '?page=' + next.toString());
         });
 	</script>	
 

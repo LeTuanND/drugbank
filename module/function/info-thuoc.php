@@ -4,7 +4,11 @@
 
     $thuoc = isset($_POST['thuoc']) ? $_POST['thuoc'] : 0;
 
-    $sql = 'select * from thuoc t join co_so_kinh_doanh cskd on t.ID_cong_ty = cskd.ID_cong_ty where ten_thuoc = "$thuoc" limit 1';
+    $sql = "UPDATE thuoc SET so_luong_tim_kiem = so_luong_tim_kiem + 1 WHERE ten_thuoc = '$thuoc'";
+
+    $query = mysqli_query($conn, $sql);
+
+    $sql = "select * from thuoc t join co_so_kinh_doanh cskd on t.ID_cong_ty = cskd.ID_cong_ty where ten_thuoc = '$thuoc' order by so_luong_tim_kiem desc limit 1";
 
 
     $query = mysqli_query($conn, $sql);
@@ -22,8 +26,6 @@
 	    $result["ten_cong_ty"] = $row["ten_cong_ty"];
 	    $result["gia_thanh"] = $row["gia_thanh"];
 	    
-	} else {
-		die("em làm sai r nha");
 	}
 	die (json_encode($result));
 
