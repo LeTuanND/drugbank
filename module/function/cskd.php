@@ -1,8 +1,10 @@
 <?php  
 	header('Content-Type: text/html; charset=UTF-8');
     include_once("config.php");
+    $page = isset($_POST['page']) ? $_POST['page'] : 0;
+    $count = ($page - 1 )*10;
 
-    $sql = "select * from co_so_kinh_doanh";
+    $sql = "select * from co_so_kinh_doanh order by ten_cong_ty limit 15 offset $count";
 
     $query = mysqli_query($conn, $sql);
 

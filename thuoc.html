@@ -32,7 +32,7 @@
 		#anh-nen {
             background-image: url('background.jpg'); 
             height: 200px; 
-            background-repeat: no-repeat; 
+            background-repeat: no-repeat;
             background-size: cover;
         }
 	</style>
@@ -67,11 +67,11 @@
                           </li>
                           <li class="nav-item">
                             <i class="fas fa-capsules"></i>
-                            <a class="nav-link" href="thuoc.html">THUỐC</a>
+                            <a class="nav-link" href="thuoc.html?page=1">THUỐC</a>
                           </li>
                           <li class="nav-item">
                             <i class="fa fa-briefcase-medical"></i>
-                            <a class="nav-link" href="cskd.html">CƠ SỞ KINH DOANH</a>
+                            <a class="nav-link" href="cskd.html?page=1">CƠ SỞ KINH DOANH</a>
                           </li>
                           
                         </ul>
@@ -94,7 +94,6 @@
         
     </div>
 	<div id="anh-nen">
-	       	<img src="">
     </div>
 
 	<!-- body-->
@@ -119,13 +118,7 @@
 				</tr>
 			</thead>
 			<tbody id="bodythuoc">
-				<tr>
-					
-					<t>
-					 <a href="info-thuoc.html" class="btn btn-primary" id="xem">Xem</a>
-					</th>
-				</tr>
-
+				
 			</tbody>
 		</table>
 	</div>
@@ -133,7 +126,9 @@
 	<!-- phân trang -->
 	<ul class="pagination justify-content-center">
         <li class="page-item pre "><a class="page-link" href="#">Trước</a></li>
-        <li class="page-item active"><a class="page-link" href="#">2</a></li>
+        <li class="page-item "><a class="page-link numpage" id="truoc" href="#">1</a></li>
+        <li class="page-item "><a class="page-link numpage" id="giua" href="#">2</a></li>
+        <li class="page-item "><a class="page-link numpage" id="sau" href="#">3</a></li>
         <li class="page-item next"><a class="page-link" href="#">Sau</a></li>
     </ul>
 	
@@ -164,7 +159,6 @@
         };
         var pagePT = getUrlParameter('page');
 
-
 		$(document).ready(function() {
 
             //lấy danh sách các thuốc
@@ -172,6 +166,9 @@
                 url : 'module/function/thuoc.php',
                 type : 'post',
                 dataType : 'json',
+                data : {
+                    page : pagePT
+                },
                 success : function (result){
                     var html = '';
 
@@ -193,60 +190,66 @@
                     alert("lỗi");
                 }
             });
+            
+            $.ajax({
+                url : 'module/function/count-thuoc.php',
+                type : 'post',
+                dataType : 'text',
+                success : function (result){
+                    var count  = result;
+                    if (pagePT.toString() == "1") {
+                        $('.pagination .pre').addClass('disabled');
 
-            //phân trang
+                        $('#giua').text("2");
+                        $('#truoc').text("1");
+                        $('#sau').text("3");
 
-            //xét giá trị
-            if ($('.pagination .active').text() == "1") {
-                $('.pagination .pre').addClass('disabled');
-            };
+                        $('#truoc').parent().addClass('active');
+                    }else if (pagePT.toString() == count) {
+                        $('.pagination .next').addClass('disabled');
+                        var giua = new Number(pagePT) - 1;
+                        var truoc = new Number(pagePT) - 2;
 
-            var pre = Number($('.pagination .active').text()) - 1;
+                        $('#giua').text(giua.toString());
+                        $('#sau').text(pagePT.toString());
+                        $('#truoc').text(truoc.toString());
+
+                        $('#sau').parent().addClass('active');
+                    } else {
+                        var truoc = new Number(pagePT) - 1;
+                        var sau = new Number(pagePT) + 1;
+                        $('#truoc').text(truoc.toString());
+                        $('#giua').text(pagePT.toString());
+                        $('#sau').text(sau.toString());
+
+                        $('#giua').parent().addClass('active');
+                    }
+                    
+                },
+                error : function (result) {
+                    alert("lỗi");
+                }
+            });
+
+            var pre = Number(pagePT) - 1;
             $('.pagination .pre a').attr('href', '?page=' + pre.toString());
 
-            var next = Number($('.pagination .active').text()) + 1; 
+            var next = Number(pagePT) + 1; 
             $('.pagination .next a').attr('href', '?page=' + next.toString());
+
 		});
 
-
+        $("body").on("click", ".pagination .page-item .numpage", function(){
+            var trang = $(this).text();
+            $(this).attr('href', '?page=' + trang);
+        });
+        
 		//xử lý sự kiện click button xem
 		$("body").on("click", "#bodythuoc tr td button", function(){
             var thuoc = $(this).parent().parent().children('#thuoc').text();
             location.assign("info-thuoc.html?thuoc=" + thuoc);
         });
-
-
-
-        //lấy giá trị page
-        var getUrlParameter = function getUrlParameter(sParam) {
-            var sPageURL = window.location.search.substring(1),
-                sURLVariables = sPageURL.split('&'),
-                sParameterName,
-                i;
-         
-            for (i = 0; i < sURLVariables.length; i++) {
-                sParameterName = sURLVariables[i].split('=');
-            
-                if (sParameterName[0] === sParam) {
-                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
-                }
-            }
-        };
-        var pagePT = getUrlParameter('page');
-
 		
-		//phân trang
-		$(document).ready(function() {
-            if ($('.pagination .active').text() == "1") {
-                $('.pagination .pre').addClass('disabled');
-            };
-
-            var pre = Number($('.pagination .active').text()) - 1;
-            $('.pagination .pre a').attr('href', '?page=' + pre.toString());
-
-            var next = Number($('.pagination .active').text()) + 1; 
-            $('.pagination .next a').attr('href', '?page=' + next.toString());
-        });
 	</script>	
 
 </body>

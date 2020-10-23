@@ -39,7 +39,7 @@
 <body>
 
 	<!-- head-->
-	<div class="container" >
+	<div class="container" id="header">
 
 		<div class="row" style="margin: 10px 0px">
 			<div class="col-3" style="padding-left: 0px;">
@@ -66,11 +66,11 @@
                           </li>
                           <li class="nav-item">
                             <i class="fas fa-capsules"></i>
-                            <a class="nav-link" href="thuoc.html">THUỐC</a>
+                            <a class="nav-link" href="thuoc.html?page=1">THUỐC</a>
                           </li>
                           <li class="nav-item">
                             <i class="fa fa-briefcase-medical"></i>
-                            <a class="nav-link" href="cskd.html">CƠ SỞ KINH DOANH</a>
+                            <a class="nav-link" href="cskd.html?page=1">CƠ SỞ KINH DOANH</a>
                           </li>
                           
                         </ul>
@@ -102,8 +102,9 @@
 	</div>
 	</div>
 	<div class="tab">
-		<div class="tab">
-			<input type="text" id="myInput" placeholder="Tìm kiếm theo tên...">
+		<div class="tab d-flex">
+			<input class="p-2 flex-fill" type="text" id="myInput" placeholder="Tìm kiếm theo tên...">
+            <button  type="button" class="p-2 btn btn-primary" style="height: 40px">xem</button>
 		</div>
 			
 
@@ -124,17 +125,12 @@
 		</table>
 	</div>
 
-	<div style="display: flex; justify-content: center;">
-		<ul class="pagination">
-		    <li class="page-item"><a class="page-link" href="#"><<</a></li>
-		    <li class="page-item"><a class="page-link" href="#">1</a></li>
-		    <li class="page-item"><a class="page-link" href="#">2</a></li>
-		    <li class="page-item"><a class="page-link" href="#">3</a></li>
-		    <li class="page-item"><a class="page-link" href="#">4</a></li>
-		    <li class="page-item"><a class="page-link" href="#">5</a></li>
-		    <li class="page-item"><a class="page-link" href="#">>></a></li>
-		</ul>
-	</div>
+	<!-- phân trang -->
+    <ul class="pagination justify-content-center">
+        <li class="page-item pre "><a class="page-link" href="#">Trước</a></li>
+        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+        <li class="page-item next"><a class="page-link" href="#">Sau</a></li>
+    </ul>
 
 	<!-- footer -->
     <div class="container-fluid footer" style="background-color: #17a2b8; height: 100px; text-align: center;">
@@ -142,7 +138,6 @@
         <div><b>Bản quyền: </b> Cục Quản lý Dược - Bộ Y tế</div>
     </div>
 
-	
 	<script type="text/javascript">
 		$(document).ready(function() {
 		  	$('#myInput').on('keyup', function(event) {
@@ -156,12 +151,34 @@
 		  	});
 		});
 
-		//hiển thị danh sách cơ sở kinh doanh
+        //lấy giá trị page
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+         
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+            
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+        };
+        var pagePT = getUrlParameter('page');
+
+		
 		$(document).ready(function() {
+
+            //hiển thị danh sách cơ sở kinh doanh
 			$.ajax({
                 url : 'module/function/cskd.php',
                 type : 'post',
                 dataType : 'json',
+                data : {
+                    page : pagePT
+                },
                 success : function (result){
                     var html = '';
 
@@ -183,6 +200,44 @@
                 }
 
             });
+
+            //PHÂN TRANG
+
+            //gán giá trị và link cho các button ở phân trang
+            $('.pagination .active a').text(pagePT.toString());
+
+            var pre = Number($('.pagination .active').text()) - 1;
+            $('.pagination .pre a').attr('href', '?page=' + pre.toString());
+
+            var next = Number($('.pagination .active').text()) + 1; 
+            $('.pagination .next a').attr('href', '?page=' + next.toString());
+
+
+            //lấy số tổng số trang, so sánh để disabled button khi trang tại 2 đầu mút
+            $.ajax({
+                url : 'module/function/count-cskd.php',
+                type : 'post',
+                dataType : 'text',
+                success : function (result){
+                    var count  = result;
+                    if ($('.pagination .active').text() == "1") {
+                        $('.pagination .pre').addClass('disabled');
+                    };
+
+                    if ($('.pagination .active').text() == count) {
+                        $('.pagination .next').addClass('disabled');
+                    };
+                    
+                },
+                error : function (result) {
+                    alert("lỗi");
+                }
+            });
+            
+
+            if ($('.pagination .active').text() == "1") {
+                $('.pagination .pre').addClass('disabled');
+            };
 		});
 
 		//xử lý sự kiện click button xem
@@ -190,10 +245,6 @@
             var cskd = $(this).parent().parent().children('.cty').text();
             location.assign("info-cskd.html?cskd=" + cskd);
         });
-
-
-
-
 	    
 	</script>
 </script>

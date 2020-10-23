@@ -42,13 +42,21 @@
         .entity:focus {
             background-color: #3A6FCF
             box-shadow: 1px 1px #007bff;
-            color: white;
+            background: #0f2f4f linear-gradient(180deg,#334e69,#0f2f4f) repeat-x;
+        }
+
+        .entity:hover {
+            background-color: #007bff;
+            box-shadow: 1px 1px #0f2f4f;
+            background: #0f2f4f linear-gradient(180deg,#334e69,#0f2f4f) repeat-x;
+            color: white !important;
         }
 
         .entityfocus {
             background-color: #007bff;
-            box-shadow: 1px 1px #007bff;
-            text-decoration-color: white;
+            box-shadow: 1px 1px #0f2f4f;
+            background: #0f2f4f linear-gradient(180deg,#334e69,#0f2f4f) repeat-x;
+            color: white !important;
         }
         
 
@@ -62,6 +70,10 @@
             z-index: 5; 
             top: 15px; 
             visibility: hidden;
+        }
+
+        .ketqua .row .col-sm-4 .card {
+            cursor: pointer;
         }
         
     </style>
@@ -95,11 +107,11 @@
                           </li>
                           <li class="nav-item">
                             <i class="fas fa-capsules"></i>
-                            <a class="nav-link" href="thuoc.html">THUỐC</a>
+                            <a class="nav-link" href="thuoc.html?page=1">THUỐC</a>
                           </li>
                           <li class="nav-item">
                             <i class="fa fa-briefcase-medical"></i>
-                            <a class="nav-link" href="cskd.html">CƠ SỞ KINH DOANH</a>
+                            <a class="nav-link" href="cskd.html?page=1">CƠ SỞ KINH DOANH</a>
                           </li>
                           
                         </ul>
@@ -145,7 +157,7 @@
 
                     <div class="input-group justify-content-center" style="text-align: center; margin-top: 10px">
 
-                        <input type="button" class="btn btn-primary text-black-50 entity entityfocus" value="tên thuốc">
+                        <input type="button" class="btn btn-primary text-black-50 entity" value="tên thuốc">
                         <input type="button" class="btn btn-primary text-black-50 entity" value="hoạt chất">
                         <input type="button" class="btn btn-primary text-black-50 entity" value="CSKD dược">
                     </div>
@@ -157,25 +169,15 @@
     </div>
 	
     <!-- kết quả tìm kiếm -->
-    <div class="container-fluid text-white" style="background-color: #0f2f4f; height: 50px; text-align: center; padding-top: 10px;">
+    <div class="container-fluid text-white" style="background-color: #0f2f4f; height: 55px; text-align: center; padding-top: 10px;">
             <i class="fa fa-search" aria-hidden="true"></i>
-            kết quả tìm kiếm
+            <span style="font-size: 20px; padding-bottom: 5px">Kết quả tìm kiếm</span> 
     </div>
 
-    <div class="container" style="margin-top: 10px; margin-bottom: 10px; margin: 10px auto">
+    <div class="container ketqua" style="margin-top: 10px; margin-bottom: 10px; margin: 10px auto">
         <div class="row">
             <div class="col-sm-4">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Albinax 70mg</h5>
-                    <p class="card-text">VD-25348-16</p>
-                    <p class="card-text">Alendronic acid</p>
-                    <p class="card-text">Viên nén</p>
-                    <p class="card-text">Công ty Cổ phần Dược - Trang thiết bị Y tế Bình Định (Bidiphar) - Việt Nam</p>
-                    <p class="card-text">Giá bán buôn kê khai: ₫15,000/Viên</p>
-                    <a href="info-thuoc.html" class="btn btn-primary">Chi tiết</a>
-                  </div>
-                </div>
+               
             </div>
         </div>  
     </div>
@@ -184,7 +186,7 @@
     <!-- phân trang -->
     <ul class="pagination justify-content-center">
         <li class="page-item pre "><a class="page-link" href="#">Trước</a></li>
-        <li class="page-item active"><a class="page-link" href="#">2</a></li>
+        <li class="page-item active"><a class="page-link" href="#header">2</a></li>
         <li class="page-item next"><a class="page-link" href="#">Sau</a></li>
     </ul>
 
@@ -201,18 +203,109 @@
 
     <script type="text/javascript">
 
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+         
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+            
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+        };
+        var entity = getUrlParameter('entity');
+
+        var search = getUrlParameter('search').toLowerCase();
+
+        var page = getUrlParameter('page');
+
         
         $(document).ready(function() {
-            if ($('.pagination .active').text() == "1") {
-                $('.pagination .pre').addClass('disabled');
+
+            if (search != "null")
+            $('#thanhtimkiem').val(search);
+
+            var entityfocus = $('.entity');
+
+            for (var i = entityfocus.length - 1; i >= 0; i--) {
+                if ( entityfocus[i].value == entity) {
+                    entityfocus[i].classList.add("entityfocus");
+                    $('#thanhtimkiem').attr("placeholder", "tìm kiếm theo "+ entity );
+                }
             };
+            
 
-            var pre = Number($('.pagination .active').text()) - 1;
-            $('.pagination .pre a').attr('href', '?page=' + pre.toString());
 
-            var next = Number($('.pagination .active').text()) + 1; 
-            $('.pagination .next a').attr('href', '?page=' + next.toString());
+            $.ajax({
+                url : 'module/function/home-search.php',
+                type : 'post',
+                dataType : 'json',
+                data : {
+                    entity : entity,
+                    search : search,
+                    page : page
+                },
+
+                success : function (result)
+                {
+                    var html = "";
+                    $.each(result, function (key, item){
+                        html += '<div class="col-sm-4">';
+                        html += '<div class="card" style="height : 20rem">';
+                        html += '<div class="card-body">';
+                        html += '<h5 class="card-title">'+item.ten_thuoc+'</h5>';
+                        html += '<p class="card-text">'+item.sdk+'</p>';
+                        html += '<p class="card-text" style="height : 6rem">'+item.hoat_chat+'</p>';
+                        html += '<p class="card-text" style="height : 3rem">'+item.cty+'</p>';
+                        html += '<p class="card-text">Giá bán buôn kê khai: '+item.gia+'</p>';
+                        html += '</div></div></div>';
+                    });
+
+                    $('.ketqua .row').html(html);
+                },
+                error : function (result) {
+                    alert("sai r bạn ơi");
+                }
+            });
+
+            //lấy số tổng số trang, so sánh để disabled button khi trang tại 2 đầu mút
+            $.ajax({
+                url : 'module/function/count-thuoc-search.php',
+                type : 'post',
+                dataType : 'text',
+                data : {
+                    entity : entity,
+                    search : search
+                },
+                success : function (result){
+                    var count  = result;
+                    if ($('.pagination .active').text() == "1") {
+                        $('.pagination .pre').addClass('disabled');
+                    };
+
+                    if ($('.pagination .active').text() == count) {
+                        $('.pagination .next').addClass('disabled');
+                    };
+                },
+                error : function (result) {
+                    alert("lỗi");
+                }
+            });
+
+            $('.pagination .active a').text(page.toString());
+
+            var pre = Number(page) - 1;
+            $('.pagination .pre a').attr('href', "home-search.html" + "?entity=" + entity + "&search=" + search + '&page=' + pre.toString());
+
+            var next = Number(page) + 1; 
+            $('.pagination .next a').attr('href',"home-search.html" + "?entity=" + entity + "&search=" + search + '&page='+ next.toString());
+
         });
+
         
 
 
@@ -233,7 +326,6 @@
         });
 
         //xử lý chọn cách tìm kiếm
-
         $(".entity").click(function(event) {
             $('#thanhtimkiem').attr("placeholder", "tìm kiếm theo "+ $(this).val() );
             /* Act on the event */
@@ -244,33 +336,24 @@
             }
         });
 
-        $(".alo").click(function(event) {
-            /* Act on the event */
-            var a = $(this).text();
-            alert(a);
+        // xử lý click vào 1 thuốc nào đó
+        $("body").on("click", ".ketqua .row .col-sm-4 .card", function(){
+            var thuoc = $(this).find('.card-title').text();
+            location.assign("info-thuoc.html?thuoc=" + thuoc);
         });
 
+        // xử lý click vào search
         $('.search').click(function(event) {
             /* Act on the event */
-            alert($('.entityfocus').val());
+            var entity = $('.entityfocus').val();
+            var search = $('#thanhtimkiem').val();
+            if (search == '') search = 'null';
+            location.assign("home-search.html" + "?entity=" + entity + "&search=" + search + "&page=1");
         });
 
+        // xử lí click vào mỗi thuốc
 
 
-        // phân trang
-        
-        $('.pagination .next').click(function(event) {
-            /* Act on the event */
-                alert(Number($('.pagination .active').text()) + 1);
-            
-        });
-
-        $('.pagination .pre').click(function(event) {
-            /* Act on the event */
-            if ($('.pagination .active').text() != "1") {
-                alert(Number($('.pagination .active').text()) - 1);
-            }
-        });
 
 
 

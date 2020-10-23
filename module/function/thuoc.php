@@ -2,7 +2,12 @@
 	header('Content-Type: text/html; charset=UTF-8');
     include_once("config.php");
 
-    $sql = "select * from co_so_kinh_doanh cskd join thuoc t on t.ID_cong_ty = cskd.ID_cong_ty order by ten_thuoc limit 20";
+    $page = isset($_POST['page']) ? $_POST['page'] : 0;
+    $count = ($page - 1 )*15;
+
+    $sql = "select * from co_so_kinh_doanh cskd join thuoc t on t.ID_cong_ty = cskd.ID_cong_ty order by ten_thuoc limit 15 offset $count";
+
+
 
     $query = mysqli_query($conn, $sql);
 
