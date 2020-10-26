@@ -73,6 +73,10 @@
                             <i class="fa fa-briefcase-medical"></i>
                             <a class="nav-link" href="cskd.html?page=1">CƠ SỞ KINH DOANH</a>
                           </li>
+                          <li class="nav-item admin">
+                            <i class="fas fa-user-alt"></i>
+                            <a class="nav-link" href="admin.html">ADMIN</a>
+                          </li>
                           
                         </ul>
                     </div>
@@ -82,7 +86,10 @@
                     <div class="row justify-content-end">
                         <span id="info-admin"></span>
                         <ul class="nav">
-                          <li class="nav-item">
+                          <li class="nav-item user">
+                            <a class="nav-link" href="">Hi:</a>
+                          </li>
+                          <li class="nav-item dangnhap">
                             <a class="nav-link" href="login.html">ĐĂNG NHẬP</a>
                           </li>
                         </ul>
@@ -229,10 +236,12 @@
                 error : function (result) {
                     alert("lỗi");
                 }
+
+
             });
 
             var pre = Number(pagePT) - 1;
-            $('.pagination .pre a').attr('href', '?page=' + pre.toString());
+            $('.pagination .pre a').attr('href', 'thuoc.html?page=' + pre.toString());
 
             var next = Number(pagePT) + 1; 
             $('.pagination .next a').attr('href', '?page=' + next.toString());
@@ -251,6 +260,7 @@
         });
 		
 	</script>	
+    <script type="text/javascript" src="js/checkss.js"></script>
 
 </body>
 </html>

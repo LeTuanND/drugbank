@@ -16,7 +16,6 @@
 	            'so_dang_ki' => $row['so_dang_ki'],
 	            'hoat_chat' => $row['hoat_chat'],
 	            'gia_thanh' => $row['gia_thanh']
-	            // thêm viên nén vào nữa
 	        );
 	    }
 	}

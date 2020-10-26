@@ -98,6 +98,10 @@
                             <a class="nav-link" href="cskd.html?page=1">CƠ SỞ KINH DOANH</a>
                           </li>
                           
+                          <li class="nav-item admin">
+                            <i class="fas fa-user-alt"></i>
+                            <a class="nav-link" href="admin.html">ADMIN</a>
+                          </li>
                         </ul>
                     </div>
                 </div>
@@ -106,7 +110,10 @@
                     <div class="row justify-content-end">
                         <span id="info-admin"></span>
                         <ul class="nav">
-                          <li class="nav-item">
+                          <li class="nav-item user">
+                            <a class="nav-link" href="">Hi:</a>
+                          </li>
+                          <li class="nav-item dangnhap">
                             <a class="nav-link" href="login.html">ĐĂNG NHẬP</a>
                           </li>
                         </ul>
@@ -272,6 +279,7 @@
                     $("#so-dang-ki").text(result["so_dang_ki"]);
                     $("#hoat-chat").text(result["hoat_chat"]);
                     $("dong-goi").text(result["quy_cach_dong_goi"]);
+                    $("#dang-bao-che").text(result["dang_bao_che"]);
                     $("#hsd").text(result["han_su_dung"]);
                     $("#cty-sx").text(result["ten_cong_ty"]);
                     $("#gia").text(result["gia_thanh"]);
@@ -295,7 +303,7 @@
                     // Vì kết quả trả về dạng JSON nên ta lặp để lấy kết quả
                     $.each(result, function (key, item){
                         html += '<div class="col-sm-3">';
-                        html += '<div class="card" style="height : 17rem">';
+                        html += '<div class="card" style="height : 19rem">';
                         html += '<div class="card-body">';
                         html += '<h5 class="card-title">'+item.ten_thuoc+'</h5>';
                         html += '<p class="card-text">'+item.so_dang_ki+'</p>';
@@ -325,7 +333,7 @@
                     // Vì kết quả trả về dạng JSON nên ta lặp để lấy kết quả
                     $.each(result, function (key, item){
                         html += '<div class="col-sm-3">';
-                        html += '<div class="card" style="height : 17rem">';
+                        html += '<div class="card" style="height : 19rem">';
                         html += '<div class="card-body">';
                         html += '<h5 class="card-title">'+item.ten_thuoc+'</h5>';
                         html += '<p class="card-text">'+item.so_dang_ki+'</p>';
@@ -349,6 +357,7 @@
         });
     
     </script>
+    <script type="text/javascript" src="js/checkss.js"></script>
 
 </body>
 </html>

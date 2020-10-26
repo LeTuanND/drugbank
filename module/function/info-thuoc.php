@@ -22,6 +22,7 @@
 	    $result["so_dang_ki"] = $row["so_dang_ki"];
 	    $result["hoat_chat"] = $row["hoat_chat"];
 	    $result["quy_cach_dong_goi"] = $row["quy_cach_dong_goi"];
+	    $result["dang_bao_che"] = $row["dang_bao_che"];
 	    $result["han_su_dung"] = $row["han_su_dung"];
 	    $result["ten_cong_ty"] = $row["ten_cong_ty"];
 	    $result["gia_thanh"] = $row["gia_thanh"];

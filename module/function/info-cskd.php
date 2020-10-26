@@ -16,6 +16,7 @@
 	    $row = mysqli_fetch_assoc($query);
 	    $result["ten_cty"] = $cskd;
 	    $result["dia_chi_tru_so"] = $row["dia_chi_tru_so_chinh"];
+	    $result["dia_chi_kinh_doanh"] = $row["dia_chi_kinh_doanh"];
 	    $result["loai_hinh_kd"] = $row["loai_hinh_kinh_doanh"];
 	    $result["sdt"] = $row["dien_thoai"];
 	}
