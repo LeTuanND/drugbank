@@ -1,0 +1,16 @@
+
+#anh-nen {
+    background-image: url('background.jpg'); 
+    height: 200px; 
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.add {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.add button {
+    border-radius: 5px;
+}

@@ -1,0 +1,30 @@
+.col-sm-6 .row{
+    margin-bottom: 15px;
+}
+
+.col-sm-6 .row .col-sm-4 {
+    font-weight: bold;
+}
+
+#img {
+    border: 3px solid #dee2e6;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.075);
+}
+
+.tieude {
+    background-color: #0f2f4f; 
+    height: 55px; 
+    text-align: center; 
+    padding-top: 13px; 
+    font-size: 20px; 
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container .row .col-sm-3 .card {
+    cursor: pointer;
+}
+
+.likehc .card, .likecty .card {
+    margin-bottom: 20px;
+}

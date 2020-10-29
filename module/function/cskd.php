@@ -2,9 +2,15 @@
 	header('Content-Type: text/html; charset=UTF-8');
     include_once("config.php");
     $page = isset($_POST['page']) ? $_POST['page'] : 0;
+    $search = isset($_POST['search']) ? $_POST['search'] : 0;
     $count = ($page - 1 )*10;
 
-    $sql = "select * from co_so_kinh_doanh order by ten_cong_ty limit 15 offset $count";
+    if ($search === "kocodulieu") {
+    	$sql = "select * from co_so_kinh_doanh order by ten_cong_ty limit 15 offset $count";
+
+    } else {
+    	$sql = "select * from co_so_kinh_doanh where ten_cong_ty like '%$search%' order by ten_cong_ty limit 15 offset $count";
+    }
 
     $query = mysqli_query($conn, $sql);
 

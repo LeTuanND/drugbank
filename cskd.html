@@ -26,15 +26,8 @@
     <script src="js/wow.min.js"></script>
     <title>Cơ sở kinh doanh</title>
 	<link rel="stylesheet" type="text/css" href="css/thuoc-cskd.css">
-	<style type="text/css">
-		#anh-nen {
-            background-image: url('background.jpg'); 
-            height: 200px; 
-            background-repeat: no-repeat; 
-            background-size: cover;
-        }
-        
-	</style>
+	
+    <link rel="stylesheet" type="text/css" href="css/cskd.css">
 </head>
 <body>
 
@@ -75,7 +68,7 @@
                           
                           <li class="nav-item admin">
                             <i class="fas fa-user-alt"></i>
-                            <a class="nav-link" href="admin.html">ADMIN</a>
+                            <a class="nav-link" href="admin.html?page=1">ADMIN</a>
                           </li>
                         </ul>
                     </div>
@@ -94,7 +87,6 @@
                         </ul>
                     </div>
                 </div>
-                
             </div>
         </div>
         
@@ -109,10 +101,20 @@
 	</div>
 	</div>
 	<div class="tab">
-		<div class="tab d-flex">
-			<input class="p-2 flex-fill" type="text" id="myInput" placeholder="Tìm kiếm theo tên...">
-            <button  type="button" class="p-2 btn btn-primary" style="height: 40px">xem</button>
-		</div>
+		<div class="container" style="text-align: center; margin-bottom: 20px">
+            <div style="padding-top: 30px">
+
+                <div class="input-group" style="width: 50%; margin: auto; margin-top: 10px" >
+
+                    <input id="thanhtimkiem" type="text" placeholder="tìm kiếm cơ sở kinh doanh" class="form-control form-control-lg ng-valid ng-dirty ng-touched">
+                        
+                    <div class="input-group-append" style="margin-left:2px">
+                        <button class="btn btn-primary search"><i class="fa fa-search fa-w-14 fa-2x" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
 			
 
 		<table class="table table-striped table-bordered myTable" id="myTable">
@@ -145,115 +147,7 @@
         <div><b>Bản quyền: </b> Cục Quản lý Dược - Bộ Y tế</div>
     </div>
 
-	<script type="text/javascript">
-		$(document).ready(function() {
-		  	$('#myInput').on('keyup', function(event) {
-			   	event.preventDefault();
-			    /* Act on the event */
-			    var tukhoa = $(this).val().toLowerCase();
-			    $('#myTable tr').filter(function() {
-			      $(this).toggle($(this).text().toLowerCase().indexOf(tukhoa)>-1);
-			    });
-
-		  	});
-		});
-
-        //lấy giá trị page
-        var getUrlParameter = function getUrlParameter(sParam) {
-            var sPageURL = window.location.search.substring(1),
-                sURLVariables = sPageURL.split('&'),
-                sParameterName,
-                i;
-         
-            for (i = 0; i < sURLVariables.length; i++) {
-                sParameterName = sURLVariables[i].split('=');
-            
-                if (sParameterName[0] === sParam) {
-                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
-                }
-            }
-        };
-        var pagePT = getUrlParameter('page');
-
-		
-		$(document).ready(function() {
-
-            //hiển thị danh sách cơ sở kinh doanh
-			$.ajax({
-                url : 'module/function/cskd.php',
-                type : 'post',
-                dataType : 'json',
-                data : {
-                    page : pagePT
-                },
-                success : function (result){
-                    var html = '';
-
-                    // Vì kết quả trả về dạng JSON nên ta lặp để lấy kết quả
-                    $.each(result, function (key, item){
-                        html += '<tr>';
-                        html += '<td class="cty">' + item.ten_cong_ty + "</td>";
-                        html += '<td>' + item.loai_hinh_kinh_doanh + "</td>";
-                        html += '<td>' + item.tru_so + "</td>";
-                        html += '<td><button style="text-align: center;" class="btn btn-primary">Xem</button></td></tr>'
-                    });
-                      
-                    // Gán nội dung html vào thẻ content
-                    $('#body').html(html);
-                    
-                },
-                error : function (result) {
-                    alert("lỗi");
-                }
-
-            });
-
-            //PHÂN TRANG
-
-            //gán giá trị và link cho các button ở phân trang
-            $('.pagination .active a').text(pagePT.toString());
-
-            var pre = Number($('.pagination .active').text()) - 1;
-            $('.pagination .pre a').attr('href', '?page=' + pre.toString());
-
-            var next = Number($('.pagination .active').text()) + 1; 
-            $('.pagination .next a').attr('href', '?page=' + next.toString());
-
-
-            //lấy số tổng số trang, so sánh để disabled button khi trang tại 2 đầu mút
-            $.ajax({
-                url : 'module/function/count-cskd.php',
-                type : 'post',
-                dataType : 'text',
-                success : function (result){
-                    var count  = result;
-                    if ($('.pagination .active').text() == "1") {
-                        $('.pagination .pre').addClass('disabled');
-                    };
-
-                    if ($('.pagination .active').text() == count) {
-                        $('.pagination .next').addClass('disabled');
-                    };
-                    
-                },
-                error : function (result) {
-                    alert("lỗi");
-                }
-            });
-            
-
-            if ($('.pagination .active').text() == "1") {
-                $('.pagination .pre').addClass('disabled');
-            };
-		});
-
-		//xử lý sự kiện click button xem
-		$("body").on("click", "#body tr td button", function(){
-            var cskd = $(this).parent().parent().children('.cty').text();
-            location.assign("info-cskd.html?cskd=" + cskd);
-        });
-	    
-	</script>
+	<script type="text/javascript" src="js/cskd.js"></script>
     <script type="text/javascript" src="js/checkss.js"></script>
 </body>
 </html>

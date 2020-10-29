@@ -18,14 +18,28 @@
     	//lấy hoạt chất của thuốc đó
 	    $row = mysqli_fetch_assoc($query);
 	    $hoatchat = $row['hoat_chat'];
-	    $array = explode(' ', $hoatchat);
 
-	    //lấy hoạt chất đầu tiên của thuốc đó
-		$first_hoatchat = $array[0];
+	 //    $rutgon1 = explode(';', $hoatchat);
+		// $rutgon2 = explode('-', $rutgon1[0]);
+		// $rutgon = rtrim($rutgon2[0]);
 
+		//lấy hoạt chất đầu tiên
+	    $rutgon1 = explode(';', $hoatchat);
+		$rutgon2 = explode('-', $rutgon1[0]);
+		$rutgon3 = rtrim($rutgon2[0]);
+		$rutgon = "";
+
+		for ($i = 0; $i < strlen($rutgon3); $i ++) {
+			if (is_numeric($rutgon3[$i]) ) {
+				break;
+			} else {
+				$rutgon = $rutgon . $rutgon3[$i];
+			}
+		}
+		$rutgon = rtrim($rutgon);
 
 		//tìm kiếm các thuốc có hoạt chất đó
-		$sql = "select * from thuoc where ten_thuoc != '$thuoc' and hoat_chat like '%$first_hoatchat%' order by so_luong_tim_kiem desc limit 8";
+		$sql = "select * from thuoc where ten_thuoc != '$thuoc' and hoat_chat like '%$rutgon%' order by so_luong_tim_kiem desc limit 8";
 
 		$query = mysqli_query($conn, $sql);
 

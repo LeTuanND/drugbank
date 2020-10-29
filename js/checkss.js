@@ -19,8 +19,6 @@ $.ajax({
             $('.dangnhap .nav-link').attr('href', 'login.html');
 
             $('.admin').css('visibility', 'hidden');
-            alert("vui lòng đăng nhập");
-            location.assign("home.html")
         }
     }
 });

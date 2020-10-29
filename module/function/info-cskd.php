@@ -3,8 +3,9 @@
     include_once("config.php");
 
     $cskd = isset($_POST['cskd']) ? $_POST['cskd'] : 0;
+    $lhkd = isset($_POST['lhkd']) ? $_POST['lhkd'] : 0;
 
-    $sql = "select * from co_so_kinh_doanh where ten_cong_ty = '$cskd'";
+    $sql = "select * from co_so_kinh_doanh where ten_cong_ty = '$cskd' and loai_hinh_kinh_doanh = '$lhkd'";
 
 
     $query = mysqli_query($conn, $sql);
@@ -21,5 +22,4 @@
 	    $result["sdt"] = $row["dien_thoai"];
 	}
 	die (json_encode($result));
-
 ?>

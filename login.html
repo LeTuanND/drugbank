@@ -8,15 +8,7 @@
 
 
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-		<style type="text/css">
-			.page {
-				color: red;
-
-			}
-			.test.html1 {
-				color: black;
-			}
-		</style>
+		<link rel="stylesheet" type="text/css" href="css/login.css">
 
 	</head>
 	<body>
@@ -47,34 +39,7 @@
 			
 		</div>
 
-		<script>
-
-			
-
-			$("#submit").click(function(event) {
-				/* Act on the event */
-				$.ajax({
-					url: 'module/function/login.php',
-					type: 'post',
-					dataType: 'text',
-					data: {
-						username: $("#username").val(),
-						password: $("#password").val()
-					},
-					success: function(result) {
-						
-						if (result == "") {
-							setTimeout(function(){alert("ban da dang nhap thanh cong")}, 2000);;
-							location.assign("home.html");
-						} else {
-							alert(result);
-							location.assign("login.html");
-						}
-
-					}
-				})
-			});
-		</script>
+		<script type="text/javascript" src="js/login.js"></script>
 		
 	</body>
 	</html>

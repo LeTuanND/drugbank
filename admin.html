@@ -24,18 +24,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <!-- Thu vien wow js -->
     <script src="js/wow.min.js"></script>
-    <title>Fantastic 3 Cineplex</title>
+    <title>Admin</title>
 
-    <style type="text/css">
-        .add {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .add button {
-            border-radius: 5px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/admin.css">
     
         
 </head>
@@ -76,7 +67,7 @@
                           </li>
                           <li class="nav-item admin">
                             <i class="fas fa-user-alt"></i>
-                            <a class="nav-link" href="admin.html">ADMIN</a>
+                            <a class="nav-link" href="admin.html?page=1">ADMIN</a>
                           </li>
                           
                         </ul>
@@ -100,94 +91,79 @@
             </div>
         </div>
     </div>
+    <div id="anh-nen">
+    </div>
 
 
     <!-- content -->
-    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-        <div class="btn-group mr-2" role="group" aria-label="First group">
-            <button type="button" class="btn btn-secondary">Thêm</button>
-        </div>
-        <div class="btn-group mr-2" role="group" aria-label="Second group">
-            <button type="button" class="btn btn-secondary">Sửa</button>
-        </div>
-        <div class="btn-group" role="group" aria-label="Third group">
-            <button type="button" class="btn btn-secondary">Xóa</button>
-      </div>
+    <div class="container-fluid text-white" style="background-color: #0f2f4f; height: 55px; text-align: center; padding-top: 10px; font-size: 20px">
+            Quản lý thuốc
     </div>
 
-    <div class="container add-drug" style="margin-top: 30px">
-        <div class="row">
-            <div class="col-sm-6">
-                <form>
-                    <div class="form-group">
-                        <label for="tenthuoc">Tên thuốc</label>
-                        <input type="text" class="form-control" id="tenthuoc">
-                    </div>
-                    <div class="form-group">
-                        <label for="sdki">Số đăng kí</label>
-                        <input type="text" class="form-control" id="sdki">
-                    </div>
-                    <div class="form-group">
-                        <label for="hc">Hoạt chất</label>
-                        <input type="text" class="form-control" id="hc">
-                    </div>
-                    <div class="form-group">
-                        <label for="qcdg">Quy cách đóng gói</label>
-                        <input type="text" class="form-control" id="qcdg">
-                    </div>
-                    <div class="form-group">
-                        <label for="baoche">Dạng bào chế</label>
-                        <input type="text" class="form-control" id="baoche">
-                    </div>
-                    <div class="form-group">
-                        <label for="hsd">Hạn sử dụng</label>
-                        <input type="text" class="form-control" id="hsd">
-                    </div>
-                    <div class="form-group">
-                        <label for="gia">Giá thành</label>
-                        <input type="text" class="form-control" id="gia">
-                    </div>
-                    <div class="form-group">
-                        <label for="anh">Ảnh</label>
-                        <input style="display: block;" type="file" id="anh">
-                        <input style="visibility: hidden;" type="text" id="srcanh">
-                    </div>
-                </form>
-            </div>
-            <div class="col-sm-6">
-                <form>
-                    <div class="form-group">
-                        <label for="cty">Tên công ty</label>
-                        <input type="text" class="form-control" id="cty" >
-                    </div>
-                    <div class="form-group">
-                        <label for="lhkd">Loại Hình kinh doanh</label>
-                        <input type="text" class="form-control" id="lhkd">
-                    </div>
-                    <div class="form-group">
-                        <label for="diachi">Địa chỉ trụ sở chính</label>
-                        <input type="text" class="form-control" id="diachi" >
-                    </div>
-                    <div class="form-group">
-                        <label for="dckd">Địa chỉ kinh doanh</label>
-                        <input type="text" class="form-control" id="dckd">
-                    </div>
-                    <div class="form-group">
-                        <label for="sdt">Số điện thoại</label>
-                        <input type="text" class="form-control" id="sdt" >
-                    </div>
-                </form>
-            </div>
-        </div>
-        
-        <div class="add">
-            <button class="btn-info">Thêm</button>
-        </div>
+    <div class="container" style="text-align: center; margin-bottom: 20px">
+        <div style="padding-top: 40px">
 
-        <div id="ketqua"></div>
+            <div class="input-group" style="width: 50%; margin: auto; margin-top: 10px" >
+                <div class="input-group-prepend" style="margin-right:2px; justify-content: center;">
+                    <a class=" btn btn-primary" href="add-thuoc.html" style="padding-top: 10px">Thêm thuốc</a>
+                </div>
+
+                <input id="thanhtimkiem" type="text" placeholder="tìm kiếm theo tên thuốc" class="form-control form-control-lg ng-valid ng-dirty ng-touched">
+                    
+                <div class="input-group-append" style="margin-left:2px">
+                    <button class="btn btn-primary search"><i class="fa fa-search fa-w-14 fa-2x" aria-hidden="true"></i></button>
+                </div>
+            </div>
             
+        </div>
     </div>
 
+    <div class="tab">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th style="width: 8%">Số đăng kí</th>
+                    
+                    <th style="width: 13%">Tên thuốc</th>
+                    <th>Hoạt chất</th>
+                    <th style="width: 30%">Công ty sản xuất</th>
+                    <th style="width: 150px">
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="bodythuoc">
+                
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal fade" id="xoathuoc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Bạn chắc chắn muốn xóa thuốc</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary  delete-drug" data-dismiss="modal">Xóa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- phân trang -->
+    <ul class="pagination justify-content-center">
+        <li class="page-item pre "><a class="page-link" href="#">Trước</a></li>
+        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+        <li class="page-item next"><a class="page-link" href="#">Sau</a></li>
+    </ul>
 
     <!-- footer -->
     <div class="container-fluid footer" style="background-color: #17a2b8; height: 100px; text-align: center;">
@@ -195,142 +171,7 @@
         <div><b>Bản quyền: </b> Cục Quản lý Dược - Bộ Y tế</div>
     </div> 
 
-    <script type="text/javascript">
-        
-
-        $(document).ready(function() {
-            $('.add-drug').find('#sdt').change(function(event) {
-                var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
-                var mobile = $('#sdt').val();
-                if(mobile !==''){
-                    if (vnf_regex.test(mobile) == false) 
-                    {
-                        alert('Số điện thoại của bạn không đúng định dạng!');
-                    }
-                }else{
-                    alert('Bạn chưa điền số điện thoại!');
-                }
-            }); 
-
-            $.ajax({
-                url: 'module/function/checkss.php',
-                type: 'post',
-                dataType: 'text',
-                
-                success: function(result) {
-                    if (result != "") {
-                        $('.user .nav-link').text('Xin Chào: ' + result.toUpperCase());
-                        $('.user').css('visibility', 'visible');
-                        $('.dangnhap .nav-link').text("ĐĂNG XUẤT");
-                        $('.dangnhap .nav-link').attr('href', './module/function/logout.php');
-
-                        $('.admin').css('visibility', 'visible');
-                    } else {
-                        $('.user').css('visibility', 'hidden');
-
-                        $('.dangnhap .nav-link').text("ĐĂNG NHẬP");
-                        $('.dangnhap .nav-link').attr('href', 'login.html');
-
-                        $('.admin').css('visibility', 'hidden');
-                        alert("vui lòng đăng nhập");
-                        location.assign("home.html")
-                    }
-                }
-            });
-        });
-
-        $('.add-drug').find('#anh').change(function(evt) {
-          var f = evt.target.files[0]; 
-          var reader = new FileReader();
-          reader.onload = (function() {
-            return function(e) {
-              evt.target.parentNode.querySelector('#srcanh').value = e.target.result;
-            };
-          })(f);
-          reader.readAsDataURL(f);
-        });
-
-
-        $('.add button').click(function(event) {
-
-            //kiểm tra nhập đầy đủ thông tin
-            var baoloi = "";
-            if ($('#tenthuoc').val() == "") {
-                baoloi = "vui lòng nhập đầy đủ thông tin";
-            }
-
-            if ($('#sdki').val() == "") {
-                baoloi = "vui lòng nhập đầy đủ thông tin";
-            }
-            if ($('#hc').val() == "") {
-                baoloi = "vui lòng nhập đầy đủ thông tin";
-            }
-            if ($('#qcdg').val() == "") {
-                baoloi = "vui lòng nhập đầy đủ thông tin";
-            }
-            if ($('#hsd').val() == "") {
-                baoloi = "vui lòng nhập đầy đủ thông tin";
-            }
-            if ($('#gia').val() == "") {
-                baoloi = "vui lòng nhập đầy đủ thông tin";
-            }
-            if ($('#srcanh').val() == "") {
-                baoloi = "vui lòng nhập đầy đủ thông tin";
-            }
-            if ($('#cty').val() == "") {
-                baoloi = "vui lòng nhập đầy đủ thông tin";
-            }
-            if ($('#lhkd').val() == "") {
-                baoloi = "vui lòng nhập đầy đủ thông tin";
-            }
-            if ($('#diachi').val() == "") {
-                baoloi = "vui lòng nhập đầy đủ thông tin";
-            }
-            if ($('#sdt').val() == "") {
-                baoloi = "vui lòng nhập đầy đủ thông tin";
-            }
-            if ($('#baoche').val() == "") {
-                baoloi = "vui lòng nhập đầy đủ thông tin";
-            }
-            if ($('#dckd').val() == "") {
-                baoloi = "vui lòng nhập đầy đủ thông tin";
-            }
-
-            if (baoloi != "") {
-                // nếu lỗi sẽ thông báo
-                alert(baoloi);
-            } else {
-                // nếu không lỗi sẽ gửi dữ liệu bằng ajax
-                $.ajax({
-                url : 'module/function/add-thuoc.php',
-                type : 'post',
-                dataType : 'text',
-                data : {
-                    tenthuoc : $('#tenthuoc').val(),
-                    sdki : $('#sdki').val(),
-                    hoatchat : $('#hc').val(),
-                    qcdg : $('#qcdg').val(),
-                    baoche : $('#baoche').val(),
-                    hsd : $('#hsd').val(),
-                    gia : $('#gia').val(),
-                    anh : $('#srcanh').val(),
-                    cty : $('#cty').val(),
-                    lhkd : $('#lhkd').val(),
-                    sdt : $('#sdt').val(),
-                    diachi : $('#diachi').val(),
-                    dckd : $('#dckd').val()
-                },
-                success : function (result){
-                    $('#ketqua').html(result);
-                },
-                error : function (result) {
-                    alert("lỗi");
-                }
-            });
-            }
-        });
-
-    </script>
+    <script type="text/javascript" src="js/admin.js"></script>
 
 </body>
 </html>

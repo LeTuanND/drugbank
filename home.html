@@ -26,53 +26,7 @@
     <script src="js/wow.min.js"></script>
     <title>Trang chủ</title>
     
-    <style type="text/css">
-        #anh-nen {
-            background-image: url('background.jpg'); 
-            height: 200px; 
-            background-repeat: no-repeat; 
-            background-size: cover;
-        }
-
-        .entity {
-            margin-left: 2px;
-            width: 185px;
-            background-color: white;
-        }
-
-        .entity:focus {
-            background-color: #3A6FCF
-            box-shadow: 1px 1px #007bff;
-            background: #0f2f4f linear-gradient(180deg,#334e69,#0f2f4f) repeat-x;
-        }
-
-        .entity:hover {
-            background-color: #007bff;
-            box-shadow: 1px 1px #0f2f4f;
-            background: #0f2f4f linear-gradient(180deg,#334e69,#0f2f4f) repeat-x;
-            color: white !important;
-        }
-
-        .entityfocus {
-            background-color: #007bff;
-            box-shadow: 1px 1px #0f2f4f;
-            background: #0f2f4f linear-gradient(180deg,#334e69,#0f2f4f) repeat-x;
-            color: white !important;
-        }
-
-        .card {
-            cursor: pointer;
-        }
-
-        #x {
-            position: absolute; 
-            left: 470px; 
-            z-index: 5; 
-            top: 15px; 
-            visibility: hidden;
-        }
-    </style>
-        
+    <link rel="stylesheet" type="text/css" href="css/home.css">
 </head>
 <body>
 	<!-- header -->
@@ -112,7 +66,7 @@
                           
                           <li class="nav-item admin">
                             <i class="fas fa-user-alt"></i>
-                            <a class="nav-link" href="admin.html">ADMIN</a>
+                            <a class="nav-link" href="admin.html?page=1">ADMIN</a>
                           </li>
                         </ul>
                     </div>
@@ -206,81 +160,7 @@
     </div>
 	
 
-    <script>
-
-        $(document).ready(function() {
-            $.ajax({
-                url : 'module/function/home.php',
-                type : 'post',
-                dataType : 'json',
-                success : function (result){
-                    var html = '';
-
-                    // Vì kết quả trả về dạng JSON nên ta lặp để lấy kết quả
-                    $.each(result, function (key, item){
-                        html += '<div class="col-sm-3">';
-                        html += '<div class="card">';
-                        html += '<img class="card-img-top" src="https://via.placeholder.com/400x400.png?text=400x400" alt="Card image cap">';
-                        html += '<div class="card-body">';
-                        html += '<h5 class="card-title">'+item.ten_thuoc+'</h5>';
-                        html += '</div></div></div>';
-                    });
-                      
-                    // Gán nội dung html vào thẻ content
-                    $('.drug .row').html(html);
-                    
-                },
-                error : function (result) {
-                    alert("lỗi");
-                }
-
-            });
-        });
-
-        // xử lý thanh tìm kiếm
-        $("#thanhtimkiem").keypress(function(event) {
-            /* Act on the event */
-            if ($(this).value != "")
-            {
-                $('#x').css("visibility",'visible');
-            }
-        });
-
-        $("#x").click(function(event) {
-            /* Act on the event */
-            $("#thanhtimkiem").val("");
-             $('#x').css("visibility",'hidden');
-        });
-
-        //xử lý chọn cách tìm kiếm
-
-        $(".entity").click(function(event) {
-            $('#thanhtimkiem').attr("placeholder", "tìm kiếm theo "+ $(this).val() );
-            /* Act on the event */
-            if (!$(this).hasClass('entityfocus'))
-            {
-                $(this).parent().children().removeClass('entityfocus');
-                $(this).addClass('entityfocus');
-            }
-        });
-
-        // xử lý click vào 1 thuốc nào đó
-        $("body").on("click", ".drug .row .card", function(){
-            var thuoc = $(this).find('.card-title').text();
-            location.assign("info-thuoc.html?thuoc=" + thuoc);
-        });
-
-        // xử lý click vào search
-        $('.search').click(function(event) {
-            /* Act on the event */
-            var entity = $('.entityfocus').val();
-            var search = $('#thanhtimkiem').val();
-            console.log(entity);
-            console.log(search);
-            location.assign("home-search.html" + "?entity=" + entity + "&search=" + search + "&page=1");
-        });
-
-    </script>
+    <script type="text/javascript" src="js/home.js"></script>
 
     <script type="text/javascript" src="js/checkss.js"></script>
 </body>
