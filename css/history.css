@@ -1,0 +1,10 @@
+#anh-nen {
+    background-image: url('background.jpg'); 
+    height: 200px; 
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.tab {
+	margin-top: 30px;
+}

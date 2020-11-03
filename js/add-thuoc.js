@@ -47,6 +47,7 @@ $('.add-drug').find('#anh').change(function(evt) {
   reader.onload = (function() {
     return function(e) {
       evt.target.parentNode.querySelector('#srcanh').value = e.target.result;
+      evt.target.parentNode.querySelector('#img').src = e.target.result;
     };
   })(f);
   reader.readAsDataURL(f);
@@ -124,7 +125,7 @@ $('.add button').click(function(event) {
         },
         success : function (result){
             alert(result);
-            location.assign("admin.html");
+            location.assign("admin.html?page=1");
         },
         error : function (result) {
             alert("lỗi");
